@@ -125,31 +125,40 @@ sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 echo -e "\n==== Installing ODOO Server ===="
 sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
 
+
+# Odoo Enterprise install!
 if [ $IS_ENTERPRISE = "True" ]; then
-    # Odoo Enterprise install!
-    sudo pip3 install psycopg2-binary pdfminer.six
-    echo -e "\n--- Create symlink for node"
-    sudo ln -s /usr/bin/nodejs /usr/bin/node
-    sudo su $OE_USER -c "mkdir $OE_HOME/enterprise"
-    sudo su $OE_USER -c "mkdir $OE_HOME/enterprise/addons"
+    
+    #----------------------------------------
+    
+      sudo apt remove python3-pip
+      sudo apt-get remove python-pip-whl
+      sudo apt install python3-pip
+      #sudo reboot
 
-    GITHUB_RESPONSE=$(sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/enterprise "$OE_HOME/enterprise/addons" 2>&1)
-    while [[ $GITHUB_RESPONSE == *"Authentication"* ]]; do
-        echo "------------------------WARNING------------------------------"
-        echo "Your authentication with Github has failed! Please try again."
-        printf "In order to clone and install the Odoo enterprise version you \nneed to be an offical Odoo partner and you need access to\nhttp://github.com/odoo/enterprise.\n"
-        echo "TIP: Press ctrl+c to stop this script."
-        echo "-------------------------------------------------------------"
-        echo " "
-        GITHUB_RESPONSE=$(sudo git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/enterprise "$OE_HOME/enterprise/addons" 2>&1)
-    done
+      sudo su $OE_USER -c "mkdir $OE_HOME/enterprise"
+      sudo su $OE_USER -c "mkdir $OE_HOME/enterprise/addons"
 
-    echo -e "\n---- Added Enterprise code under $OE_HOME/enterprise/addons ----"
-    echo -e "\n---- Installing Enterprise specific libraries ----"
-    sudo -H pip3 install num2words ofxparse dbfread ebaysdk firebase_admin pyOpenSSL
-    sudo npm install -g less
-    sudo npm install -g less-plugin-clean-css
-fi
+      GITHUB_RESPONSE=$(sudo git clone --depth 1 --branch $OE_VERSION <https://www.github.com/odoo/enterprise> "$OE_HOME/enterprise/addons" 2>&1)
+
+      sudo apt-get update -y
+      #sudo reboot
+      
+      echo -e "\n---- Installing Enterprise specific libraries ----"
+      sudo -H pip3 install num2words ofxparse dbfread ebaysdk firebase_admin pyOpenSSL
+      #sudo reboot
+
+      sudo apt-get install -y python3-testresources
+      #sudo reboot
+      
+      echo -e "\n---- Added Enterprise code under $OE_HOME/enterprise/addons ----"
+      sudo npm install -g less
+      #sudo reboot
+      sudo npm install -g less-plugin-clean-css
+      #sudo reboot
+    
+    #----------------------------------------
+ fi
 
 echo -e "\n---- Create custom module directory ----"
 sudo su $OE_USER -c "mkdir $OE_HOME/custom"
