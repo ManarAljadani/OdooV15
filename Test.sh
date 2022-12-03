@@ -12,6 +12,13 @@
 #  4. Run Odoo  
 # https://www.odoo.com/documentation/15.0/administration/install/install.html#setup-install-source-linux
 
+#------------------------------------------------System configuration-------------------------------------------------|
+# $USER="forcodes"                                                                                                    |
+# LONGPOLLING_PORT="8072" [for LiveChat]                                                                              |
+#                                                                                                                     |
+#                                                                                                                     |
+# To run Odoo [./odoo-bin]                                                                                            |
+#---------------------------------------------------------------------------------------------------------------------|
 
 USER="forcodes"
 #----------------------------------------------------
