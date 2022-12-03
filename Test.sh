@@ -12,6 +12,8 @@
 #  4. Run Odoo  
 # https://www.odoo.com/documentation/15.0/administration/install/install.html#setup-install-source-linux
 
+
+USER="forcodes"
 #----------------------------------------------------
 # Update Server
 #----------------------------------------------------
@@ -55,6 +57,7 @@ sudo apt install postgresql postgresql-client
 
 # Create a new PostgreSQL user
 sudo -u postgres createuser -s $USER
+createdb $USER
 
 
 
