@@ -1,7 +1,16 @@
 #!/bin/bash
 
 # Install Odoo V16
-
+# Prepare needs:
+# 1. Python
+# 2. PostgreSQL
+# 3. Dependencies
+#   3.1. requirements.txt
+#   3.2. wkhtmltopdf
+#   3.3. Node.js & npm
+#     3.3.1. rtlcss
+#  4. Run Odoo  
+# https://www.odoo.com/documentation/15.0/administration/install/install.html#setup-install-source-linux
 
 #----------------------------------------------------
 # Update Server
